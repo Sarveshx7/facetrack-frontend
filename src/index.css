@@ -1,0 +1,232 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    @apply border-gray-200 dark:border-gray-700;
+  }
+  
+  body {
+    @apply bg-gradient-to-br from-purple-50 via-violet-50 to-fuchsia-50 dark:from-gray-900 dark:via-purple-900/20 dark:to-gray-900 text-gray-900 dark:text-white;
+    font-feature-settings: "rlig" 1, "calt" 1;
+    min-height: 100vh;
+  }
+}
+
+@layer components {
+  .glass-morphism {
+    @apply bg-white/10 backdrop-blur-md border border-white/20;
+  }
+  
+  .glass-morphism-dark {
+    @apply bg-black/10 backdrop-blur-md border border-white/10;
+  }
+  
+  .gradient-primary {
+    @apply bg-gradient-to-r from-primary-500 to-primary-600;
+  }
+  
+  .gradient-secondary {
+    @apply bg-gradient-to-r from-secondary-500 to-secondary-600;
+  }
+  
+  .gradient-success {
+    @apply bg-gradient-to-r from-success-500 to-success-600;
+  }
+  
+  .gradient-warning {
+    @apply bg-gradient-to-r from-warning-500 to-warning-600;
+  }
+  
+  .gradient-error {
+    @apply bg-gradient-to-r from-error-500 to-error-600;
+  }
+  
+  .card-hover {
+    @apply transition-all duration-300 hover:shadow-lg hover:scale-105;
+  }
+  
+  .btn-primary {
+    @apply bg-primary-500 hover:bg-primary-600 text-white font-medium py-2 px-4 rounded-lg transition-colors duration-200;
+  }
+  
+  .btn-secondary {
+    @apply bg-secondary-500 hover:bg-secondary-600 text-white font-medium py-2 px-4 rounded-lg transition-colors duration-200;
+  }
+  
+  .btn-success {
+    @apply bg-success-500 hover:bg-success-600 text-white font-medium py-2 px-4 rounded-lg transition-colors duration-200;
+  }
+  
+  .btn-warning {
+    @apply bg-warning-500 hover:bg-warning-600 text-white font-medium py-2 px-4 rounded-lg transition-colors duration-200;
+  }
+  
+  .btn-error {
+    @apply bg-error-500 hover:bg-error-600 text-white font-medium py-2 px-4 rounded-lg transition-colors duration-200;
+  }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-gray-100 dark:bg-gray-800;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-gray-300 dark:bg-gray-600 rounded-full;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-gray-400 dark:bg-gray-500;
+}
+
+/* Loading animations */
+.loading-dots {
+  display: inline-block;
+  position: relative;
+  width: 80px;
+  height: 80px;
+}
+
+.loading-dots div {
+  position: absolute;
+  top: 33px;
+  width: 13px;
+  height: 13px;
+  border-radius: 50%;
+  background: currentColor;
+  animation-timing-function: cubic-bezier(0, 1, 1, 0);
+}
+
+.loading-dots div:nth-child(1) {
+  left: 8px;
+  animation: loading-dots1 0.6s infinite;
+}
+
+.loading-dots div:nth-child(2) {
+  left: 8px;
+  animation: loading-dots2 0.6s infinite;
+}
+
+.loading-dots div:nth-child(3) {
+  left: 32px;
+  animation: loading-dots2 0.6s infinite;
+}
+
+.loading-dots div:nth-child(4) {
+  left: 56px;
+  animation: loading-dots3 0.6s infinite;
+}
+
+@keyframes loading-dots1 {
+  0% {
+    transform: scale(0);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes loading-dots3 {
+  0% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(0);
+  }
+}
+
+@keyframes loading-dots2 {
+  0% {
+    transform: translate(0, 0);
+  }
+  100% {
+    transform: translate(24px, 0);
+  }
+}
+
+/* Custom scrollbar for glassmorphism sections */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 8px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 10px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.5);
+}
+
+/* Liquid Glass Toast Notification Styles */
+.liquid-glass-toast {
+  animation: slideInRight 0.3s ease-out, shimmer 3s ease-in-out infinite;
+  position: relative;
+  overflow: hidden;
+}
+
+.liquid-glass-toast::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(
+    45deg,
+    transparent,
+    rgba(255, 255, 255, 0.1),
+    transparent
+  );
+  transform: rotate(45deg);
+  animation: shine 3s ease-in-out infinite;
+}
+
+@keyframes slideInRight {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes shimmer {
+  0%, 100% {
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37), 
+                inset 0 0 0 1px rgba(255, 255, 255, 0.18);
+  }
+  50% {
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.5), 
+                inset 0 0 0 1px rgba(255, 255, 255, 0.3);
+  }
+}
+
+@keyframes shine {
+  0% {
+    transform: translateX(-100%) translateY(-100%) rotate(45deg);
+  }
+  100% {
+    transform: translateX(100%) translateY(100%) rotate(45deg);
+  }
+}
+
+/* Dark mode toast adjustments */
+.dark .liquid-glass-toast {
+  background: rgba(17, 24, 39, 0.3) !important;
+  color: #f9fafb !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+}

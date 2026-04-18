@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Clear Demo Data</title>
+</head>
+<body>
+    <h1>Clear Demo Data</h1>
+    <button onclick="clearData()">Clear localStorage Demo Data</button>
+    <div id="result"></div>
+    
+    <script>
+        function clearData() {
+            localStorage.removeItem('demo_students');
+            localStorage.clear();
+            document.getElementById('result').innerHTML = '<p style="color: green;">Demo data cleared! Please refresh your main application.</p>';
+        }
+        
+        // Show current localStorage data
+        const demoData = localStorage.getItem('demo_students');
+        if (demoData) {
+            document.getElementById('result').innerHTML = '<p>Found demo data: ' + demoData.length + ' characters</p>';
+        } else {
+            document.getElementById('result').innerHTML = '<p>No demo data found</p>';
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Working Test</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        button { padding: 10px 20px; margin: 10px; background: #007bff; color: white; border: none; border-radius: 5px; cursor: pointer; }
+        button:hover { background: #0056b3; }
+        #result { margin: 20px 0; padding: 20px; border: 1px solid #ddd; border-radius: 5px; }
+        .success { background: #d4edda; border-color: #c3e6cb; }
+        .error { background: #f8d7da; border-color: #f5c6cb; }
+    </style>
+</head>
+<body>
+    <h1>Working Student Management</h1>
+    
+    <div>
+        <button onclick="getStudents()">Get Students</button>
+        <button onclick="addStudent()">Add Test Student</button>
+        <button onclick="clearAll()">Clear All Students</button>
+    </div>
+    
+    <div id="result"></div>
+    
+    <script>
+        const API_BASE = 'http://localhost:8080/api';
+        
+        async function getStudents() {
+            const result = document.getElementById('result');
+            result.innerHTML = 'Loading...';
+            
+            try {
+                const response = await fetch(`${API_BASE}/students`);
+                const data = await response.json();
+                
+                if (data.success) {
+                    result.className = 'success';
+                    result.innerHTML = `
+                        <h3>✅ Students (${data.data.totalElements})</h3>
+                        <pre>${JSON.stringify(data.data.content, null, 2)}</pre>
+                    `;
+                } else {
+                    throw new Error(data.message);
+                }
+            } catch (error) {
+                result.className = 'error';
+                result.innerHTML = `<h3>❌ Error</h3><p>${error.message}</p>`;
+            }
+        }
+        
+        async function addStudent() {
+            const result = document.getElementById('result');
+            result.innerHTML = 'Adding student...';
+            
+            const studentData = {
+                ienNumber: '1221' + Math.floor(Math.random() * 10000),
+                rollNumber: Math.floor(Math.random() * 100).toString(),
+                firstName: 'Test',
+                lastName: 'Student',
+                email: `test${Math.floor(Math.random() * 1000)}@example.com`,
+                phoneNumber: '9876543210',
+                department: 'CE',
+                branch: 'CE',
+                year: 1,
+                semester: 1
+            };
+            
+            try {
+                const response = await fetch(`${API_BASE}/students`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(studentData)
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    result.className = 'success';
+                    result.innerHTML = `
+                        <h3>✅ Student Added!</h3>
+                        <pre>${JSON.stringify(data.data, null, 2)}</pre>
+                        <button onclick="getStudents()">Refresh List</button>
+                    `;
+                } else {
+                    throw new Error(data.message);
+                }
+            } catch (error) {
+                result.className = 'error';
+                result.innerHTML = `<h3>❌ Error</h3><p>${error.message}</p>`;
+            }
+        }
+        
+        async function clearAll() {
+            // This will restart the backend and clear the H2 database
+            alert('To clear all students, restart the backend server (it will reset the H2 database)');
+        }
+        
+        // Load students on page load
+        getStudents();
+    </script>
+</body>
+</html>

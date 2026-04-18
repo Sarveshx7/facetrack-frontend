@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>API Test</title>
+</head>
+<body>
+    <h1>API Connection Test</h1>
+    <button onclick="testAPI()">Test Backend Connection</button>
+    <button onclick="clearStorage()">Clear All Storage</button>
+    <div id="result"></div>
+    
+    <script>
+        async function testAPI() {
+            const resultDiv = document.getElementById('result');
+            resultDiv.innerHTML = '<p>Testing...</p>';
+            
+            try {
+                // Test the API directly
+                const response = await fetch('http://localhost:8080/api/students');
+                const data = await response.json();
+                
+                resultDiv.innerHTML = `
+                    <h3>✅ Backend Connection Successful!</h3>
+                    <p><strong>Students found:</strong> ${data.data.totalElements}</p>
+                    <pre>${JSON.stringify(data, null, 2)}</pre>
+                `;
+            } catch (error) {
+                resultDiv.innerHTML = `
+                    <h3>❌ Backend Connection Failed</h3>
+                    <p><strong>Error:</strong> ${error.message}</p>
+                `;
+            }
+        }
+        
+        function clearStorage() {
+            localStorage.clear();
+            sessionStorage.clear();
+            document.getElementById('result').innerHTML = '<p style="color: green;">All storage cleared!</p>';
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Direct API Test</title>
+</head>
+<body>
+    <h1>Direct API Test</h1>
+    <button onclick="testAddStudent()">Test Add Student</button>
+    <button onclick="testGetStudents()">Test Get Students</button>
+    <div id="result"></div>
+    
+    <script>
+        async function testAddStudent() {
+            const resultDiv = document.getElementById('result');
+            resultDiv.innerHTML = '<p>Testing add student...</p>';
+            
+            const studentData = {
+                ienNumber: "12221010",
+                rollNumber: "64", 
+                firstName: "Praanava",
+                lastName: "Chate",
+                email: "praanavsathe@gmail.com",
+                phoneNumber: "8784612413",
+                department: "CE",
+                branch: "CE",
+                year: 1,
+                semester: 1
+            };
+            
+            try {
+                const response = await fetch('http://localhost:8080/api/students', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(studentData)
+                });
+                
+                const data = await response.json();
+                
+                if (response.ok) {
+                    resultDiv.innerHTML = `
+                        <h3>✅ Student Added Successfully!</h3>
+                        <pre>${JSON.stringify(data, null, 2)}</pre>
+                    `;
+                } else {
+                    resultDiv.innerHTML = `
+                        <h3>❌ Failed to Add Student</h3>
+                        <p>Status: ${response.status}</p>
+                        <pre>${JSON.stringify(data, null, 2)}</pre>
+                    `;
+                }
+            } catch (error) {
+                resultDiv.innerHTML = `
+                    <h3>❌ Error</h3>
+                    <p>${error.message}</p>
+                `;
+            }
+        }
+        
+        async function testGetStudents() {
+            const resultDiv = document.getElementById('result');
+            resultDiv.innerHTML = '<p>Testing get students...</p>';
+            
+            try {
+                const response = await fetch('http://localhost:8080/api/students');
+                const data = await response.json();
+                
+                resultDiv.innerHTML = `
+                    <h3>✅ Students Retrieved</h3>
+                    <p>Total: ${data.data.totalElements}</p>
+                    <pre>${JSON.stringify(data, null, 2)}</pre>
+                `;
+            } catch (error) {
+                resultDiv.innerHTML = `
+                    <h3>❌ Error</h3>
+                    <p>${error.message}</p>
+                `;
+            }
+        }
+    </script>
+</body>
+</html>
