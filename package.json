@@ -1,15 +1,12 @@
-
 {
   "name": "face-attendance-frontend",
   "version": "0.1.0",
   "private": true,
-
   "browser": {
-  "fs": false,
-  "path": false,
-  "os": false
-},
-
+    "fs": false,
+    "path": false,
+    "os": false
+  },
   "dependencies": {
     "@mediapipe/camera_utils": "^0.3.1675466862",
     "@mediapipe/drawing_utils": "^0.3.1675466124",
@@ -46,6 +43,7 @@
     "lucide-react": "^0.544.0",
     "postcss": "^8.5.6",
     "react": "^19.1.1",
+    "react-app-rewired": "^2.2.1",
     "react-dom": "^19.1.1",
     "react-hot-toast": "^2.6.0",
     "react-router-dom": "^7.9.1",
@@ -59,11 +57,11 @@
     "xlsx": "^0.18.5"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
-  },
+  "start": "react-app-rewired start",
+  "build": "react-app-rewired build",
+  "test": "react-app-rewired test",
+  "eject": "react-scripts eject"
+},
   "eslintConfig": {
     "extends": [
       "react-app",

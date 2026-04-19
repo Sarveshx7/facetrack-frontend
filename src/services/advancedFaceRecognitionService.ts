@@ -1,5 +1,6 @@
 import * as faceapi from 'face-api.js';
-
+// Fix for browser environment
+const fs = null;
 // Enhanced interfaces for comprehensive face recognition
 export interface FaceDetection {
   detection: faceapi.FaceDetection;
