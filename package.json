@@ -1,7 +1,15 @@
+
 {
   "name": "face-attendance-frontend",
   "version": "0.1.0",
   "private": true,
+
+  "browser": {
+  "fs": false,
+  "path": false,
+  "os": false
+},
+
   "dependencies": {
     "@mediapipe/camera_utils": "^0.3.1675466862",
     "@mediapipe/drawing_utils": "^0.3.1675466124",
